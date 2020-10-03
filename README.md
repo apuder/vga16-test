@@ -1,7 +1,7 @@
 
-# PocketTRS
+# VGA16Controller Demo
 
 ```
-git clone --recursive git@github.com:apuder/PocketTRS.git
+git clone --recursive git@github.com:apuder/vga16-test.git
 ```
 

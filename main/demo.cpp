@@ -20,10 +20,30 @@
  */
 
 
+#include <string.h>
 #include "fabgl.h"
 
 #include "vtanimations.h"
 
+#include <stdlib.h>
+
+//#define ARNO_CONFIG
+
+#define VGA_RED GPIO_NUM_22
+#define VGA_GREEN GPIO_NUM_21
+#define VGA_BLUE GPIO_NUM_23
+#define VGA_HSYNC GPIO_NUM_26
+#define VGA_VSYNC GPIO_NUM_5
+
+static int random(int x)
+{
+  return rand() % x;
+}
+
+static void delay(int ms)
+{
+  vTaskDelay(1000 / ms);
+}
 
 
 fabgl::VGA16Controller DisplayController;
@@ -34,7 +54,11 @@ void setup()
 {
   //Serial.begin(115200); delay(500); Serial.write("\n\n\n"); // DEBUG ONLY
 
+#ifdef ARNO_CONFIG
+  DisplayController.begin(VGA_RED, VGA_GREEN, VGA_BLUE, VGA_HSYNC, VGA_VSYNC);
+#else
   DisplayController.begin();
+#endif
   DisplayController.setResolution(VGA_640x480_60Hz);
 
   Terminal.begin(&DisplayController);
@@ -209,3 +233,10 @@ void loop()
   delay(4000);
   demo5();
 }
+
+extern "C" void app_main()
+{
+  setup();
+  while(1) loop();
+}
+

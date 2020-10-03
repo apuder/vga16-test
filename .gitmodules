@@ -1,0 +1,3 @@
+[submodule "components/FabGL"]
+	path = components/FabGL
+	url = https://github.com/fdivitto/FabGL.git
